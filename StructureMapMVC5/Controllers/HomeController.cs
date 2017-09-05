@@ -8,23 +8,16 @@ namespace StructureMapMVC5.Controllers
 {
     public class HomeController : Controller
     {
+        Services.IBasicService _basicService;
+        public HomeController(Services.IBasicService basicService)
+        {
+            _basicService = basicService;
+        }
         public ActionResult Index()
         {
+            ViewBag.Result = _basicService.ExecuteDBMethod();
             return View();
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }
