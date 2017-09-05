@@ -9,7 +9,7 @@ namespace StructureMapMVC5.Services
     {
 
         Models.IDBMethod _myMethod;
-        public BasicService(Models.IDBMethod myMethod)
+        public BasicService( Models.IDBMethod myMethod)
         {
             _myMethod = myMethod;
         }

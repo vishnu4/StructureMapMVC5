@@ -29,6 +29,10 @@ namespace StructureMapMVC5.DependencyResolution
     using System.Web.Routing;
     using System.Globalization;
     using System;
+    using Microsoft.AspNet.Identity.Owin;
+    using StructureMapMVC5.Models;
+    using StructureMapMVC5.Services;
+    using Microsoft.AspNet.Identity;
 
     public class DefaultRegistry : Registry
     {
@@ -39,6 +43,9 @@ namespace StructureMapMVC5.DependencyResolution
             //For<DGI.CoBRAPlugInSDK.IDatabaseMethods>().Use<DGI.CoBRA.Web.BusinessObjects.DataAccess.SQLServer.MonitoredSQLServerMethods>().Ctor<string>("connectionString").Is(DGI.CoBRA.Web.BusinessObjects.WebEngine.ClientLogConnectionString);
             For<Models.IDBMethod>().Add<Models.FirstDBMethod>().Named("First");
             For<Models.IDBMethod>().Add<Models.SeondDBMethod>().Named("Second");
+
+            For<UserManager<ApplicationUser>>().Use<CustomUserManager>();
+            For<SignInManager<ApplicationUser, string>>().Use<CustomSignInManager>().Ctor<Models.IDBMethod>("dbProvider").IsNamedInstance("First");
 
             For<Services.IBasicService>().Add<Services.BasicService>()
                 .Ctor<Models.IDBMethod>("myMethod").IsNamedInstance("First");
